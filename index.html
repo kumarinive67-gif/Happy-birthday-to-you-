@@ -17,6 +17,21 @@ color:white;
 text-align:center;
 }
 
+/* tap screen */
+#startScreen{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:8vw;
+background:black;
+z-index:999;
+}
+
 /* stars */
 .star{
 position:fixed;
@@ -57,13 +72,13 @@ font-weight:700;
 margin-bottom:10px;
 }
 
-/* typing text */
+/* text */
 #text{
 font-size:5vw;
 padding:10px;
 }
 
-/* slideshow image */
+/* slideshow */
 #slide{
 width:100vw;
 height:auto;
@@ -106,7 +121,9 @@ to{transform:translateY(110vh);}
 </style>
 </head>
 
-<body onclick="start()">
+<body>
+
+<div id="startScreen" onclick="start()">Tap anywhere 💫</div>
 
 <div id="count">3</div>
 
@@ -135,7 +152,7 @@ let portal = document.getElementById("portal");
 let movie = document.getElementById("movie");
 let music = document.getElementById("music");
 
-/* star background */
+/* lighter stars for speed */
 for(let i=0;i<50;i++){
 let s=document.createElement("div");
 s.className="star";
@@ -143,6 +160,40 @@ s.style.left=Math.random()*100+"vw";
 s.style.top=Math.random()*100+"vh";
 s.style.animationDuration=(Math.random()*5+3)+"s";
 document.body.appendChild(s);
+}
+
+/* text */
+let text="Happy birthday ✨🎂 Namma ippo pesala naalum un life nalla poganum nu dhaan wish panren 🤍 Nee eppavum happy ah irukanum 😊🌸 Enjoy your day 🫶✨";
+let i=0;
+
+function type(){
+if(i<text.length){
+document.getElementById("text").innerHTML+=text.charAt(i);
+i++;
+setTimeout(type,45);
+}
+}
+
+/* slideshow preload */
+let photos=["photo1.jpg","photo2.jpg","photo3.jpg"];
+photos.forEach(src=>{
+let img=new Image();
+img.src=src;
+});
+
+let index=0;
+
+function slideshow(){
+slide.src=photos[index];
+slide.style.opacity=1;
+
+setTimeout(()=>{
+slide.style.opacity=0;
+index++;
+if(index<photos.length){
+setTimeout(slideshow,500);
+}
+},2500);
 }
 
 /* countdown */
@@ -158,35 +209,6 @@ count.style.opacity=0;
 showMessage();
 }
 },1000);
-}
-
-/* typing text */
-let text="Happy birthday ✨🎂 Namma ippo pesala naalum un life nalla poganum nu dhaan wish panren 🤍 Nee eppavum happy ah irukanum 😊🌸 Enjoy your day 🫶✨";
-let i=0;
-
-function type(){
-if(i<text.length){
-document.getElementById("text").innerHTML+=text.charAt(i);
-i++;
-setTimeout(type,45);
-}
-}
-
-/* slideshow */
-let photos=["photo1.jpg","photo2.jpg","photo3.jpg"];
-let index=0;
-
-function slideshow(){
-slide.src=photos[index];
-slide.style.opacity=1;
-
-setTimeout(()=>{
-slide.style.opacity=0;
-index++;
-if(index<photos.length){
-setTimeout(slideshow,500);
-}
-},2500);
 }
 
 /* show message */
@@ -211,7 +233,7 @@ function confetti(){
 setInterval(()=>{
 let c=document.createElement("div");
 c.className="confetti";
-c.innerHTML="";
+c.innerHTML="🎉";
 c.style.left=Math.random()*100+"vw";
 document.body.appendChild(c);
 setTimeout(()=>c.remove(),3000);
@@ -220,9 +242,9 @@ setTimeout(()=>c.remove(),3000);
 
 /* start */
 function start(){
+document.getElementById("startScreen").style.display="none";
 music.play();
 countdown();
-document.body.onclick=null;
 }
 
 </script>
