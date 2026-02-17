@@ -3,6 +3,8 @@
 <head>
 <title>Birthday Surprise</title>
 
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
@@ -31,7 +33,7 @@ animation:fall linear infinite;
 position:fixed;
 top:40%;
 width:100%;
-font-size:80px;
+font-size:18vw;
 opacity:0;
 transition:1s;
 }
@@ -40,14 +42,15 @@ transition:1s;
 #msgBox{
 opacity:0;
 position:fixed;
-top:10%;
+top:8%;
 width:100%;
 transition:2s;
+padding:10px;
 }
 
 /* name */
 #name{
-font-size:40px;
+font-size:9vw;
 color:#ff9ed6;
 text-shadow:0 0 20px pink;
 font-weight:700;
@@ -56,15 +59,15 @@ margin-bottom:10px;
 
 /* typing text */
 #text{
-font-size:20px;
+font-size:5vw;
 padding:10px;
 }
 
 /* slideshow image */
 #slide{
 margin:auto;
-width:90%;
-max-width:350px;
+width:90vw;
+max-width:420px;
 border-radius:15px;
 display:block;
 opacity:0;
@@ -209,7 +212,7 @@ function confetti(){
 setInterval(()=>{
 let c=document.createElement("div");
 c.className="confetti";
-c.innerHTML="";
+c.innerHTML="🎉";
 c.style.left=Math.random()*100+"vw";
 document.body.appendChild(c);
 setTimeout(()=>c.remove(),3000);
