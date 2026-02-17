@@ -233,7 +233,7 @@ function confetti(){
 setInterval(()=>{
 let c=document.createElement("div");
 c.className="confetti";
-c.innerHTML="🎉";
+c.innerHTML="";
 c.style.left=Math.random()*100+"vw";
 document.body.appendChild(c);
 setTimeout(()=>c.remove(),3000);
