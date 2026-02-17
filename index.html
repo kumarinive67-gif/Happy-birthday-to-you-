@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Birthday Surprise</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+body{
+margin:0;
+background:black;
+overflow:hidden;
+font-family:'Quicksand', sans-serif;
+color:white;
+text-align:center;
+}
+
+/* stars */
+.star{
+position:fixed;
+width:2px;
+height:2px;
+background:white;
+opacity:.7;
+animation:fall linear infinite;
+}
+@keyframes fall{to{transform:translateY(110vh);}}
+
+/* countdown */
+#count{
+position:fixed;
+top:40%;
+width:100%;
+font-size:80px;
+opacity:0;
+transition:1s;
+}
+
+/* message box */
+#msgBox{
+opacity:0;
+position:fixed;
+top:10%;
+width:100%;
+transition:2s;
+}
+
+/* name */
+#name{
+font-size:40px;
+color:#ff9ed6;
+text-shadow:0 0 20px pink;
+font-weight:700;
+margin-bottom:10px;
+}
+
+/* typing text */
+#text{
+font-size:20px;
+padding:10px;
+}
+
+/* slideshow image */
+#slide{
+margin:auto;
+width:90%;
+max-width:350px;
+border-radius:15px;
+display:block;
+opacity:0;
+transition:1s;
+}
+
+/* portal video */
+#portal{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:black;
+opacity:0;
+transition:3s;
+}
+
+video{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+/* confetti */
+.confetti{
+position:fixed;
+font-size:25px;
+animation:conf 3s linear infinite;
+}
+@keyframes conf{
+from{transform:translateY(-10vh);}
+to{transform:translateY(110vh);}
+}
+
+</style>
+</head>
+
+<body onclick="start()">
+
+<div id="count">3</div>
+
+<div id="msgBox">
+<div id="name">Sharmiii!!</div>
+<div id="text"></div>
+<img id="slide" src="">
+</div>
+
+<div id="portal">
+<video id="movie">
+<source src="video.mp4">
+</video>
+</div>
+
+<audio id="music">
+<source src="music.mp3">
+</audio>
+
+<script>
+
+let count = document.getElementById("count");
+let msgBox = document.getElementById("msgBox");
+let slide = document.getElementById("slide");
+let portal = document.getElementById("portal");
+let movie = document.getElementById("movie");
+let music = document.getElementById("music");
+
+/* star background */
+for(let i=0;i<120;i++){
+let s=document.createElement("div");
+s.className="star";
+s.style.left=Math.random()*100+"vw";
+s.style.top=Math.random()*100+"vh";
+s.style.animationDuration=(Math.random()*5+3)+"s";
+document.body.appendChild(s);
+}
+
+/* countdown */
+function countdown(){
+count.style.opacity=1;
+let n=3;
+let timer=setInterval(()=>{
+n--;
+count.innerHTML=n>0?n:"GO!";
+if(n<0){
+clearInterval(timer);
+count.style.opacity=0;
+showMessage();
+}
+},1000);
+}
+
+/* typing text */
+let text="Happy birthday ✨🎂 Namma ippo pesala naalum un life nalla poganum nu dhaan wish panren 🤍 Nee eppavum happy ah irukanum 😊🌸 Enjoy your day 🫶✨";
+let i=0;
+
+function type(){
+if(i<text.length){
+document.getElementById("text").innerHTML+=text.charAt(i);
+i++;
+setTimeout(type,45);
+}
+}
+
+/* slideshow */
+let photos=["photo1.jpg","photo2.jpg","photo3.jpg"];
+let index=0;
+
+function slideshow(){
+slide.src=photos[index];
+slide.style.opacity=1;
+
+setTimeout(()=>{
+slide.style.opacity=0;
+index++;
+if(index<photos.length){
+setTimeout(slideshow,500);
+}
+},2500);
+}
+
+/* show message */
+function showMessage(){
+msgBox.style.opacity=1;
+type();
+slideshow();
+
+setTimeout(()=>{
+portal.style.display="block";
+setTimeout(()=>portal.style.opacity=1,100);
+movie.play();
+},9000);
+
+setTimeout(()=>{
+confetti();
+},12000);
+}
+
+/* confetti */
+function confetti(){
+setInterval(()=>{
+let c=document.createElement("div");
+c.className="confetti";
+c.innerHTML="";
+c.style.left=Math.random()*100+"vw";
+document.body.appendChild(c);
+setTimeout(()=>c.remove(),3000);
+},200);
+}
+
+/* start */
+function start(){
+music.play();
+countdown();
+document.body.onclick=null;
+}
+
+</script>
+
+</body>
+</html>
